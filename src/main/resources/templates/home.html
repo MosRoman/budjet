@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/header :: header-content">
+</head>
+<body>
+<div th:replace="navs/nav :: nav-content"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="navs/sidebar :: sidebar-content"></div>
+        <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
+
+            <div class="jumbotron" >
+                <div class="container">
+                    <h1 class="display-3" th:text="Hello+' '+${user}">Budget projekt! </h1>
+
+
+
+                </div>
+            </div>
+
+
+            <h2>Month Budget</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th> Date</th>
+
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="budget : ${monthBudgets}">
+
+                        <td th:text="${budget.id}"></td>
+                        <td th:text="${budget.localDate}"></td>
+
+                        <td>
+
+                            <a th:href="@{'/admin/users/' + ${budget.id} + '/update'}"
+                               class="btn btn-info" href="#">
+                                <span data-feather="edit"></span>
+                            </a>
+
+                        </td>
+                    </tr>
+                    </tbody>
+
+
+                </table>
+                <p>
+                    <a class="btn btn-outline-primary" href="/admin/users/new">
+                        Add new Month Bodjet
+                    </a>
+                </p>
+        </main>
+        <div th:replace="fragments/footer :: footer-content"></div>
+    </div>
+</div>
+<div th:include="fragments/footer :: footer-scripts"></div>
+</body>
+</html>
+

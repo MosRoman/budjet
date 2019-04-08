@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-content">
+</head>
+<body>
+<div th:replace="navs/nav :: nav-content"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="navs/sidebar :: sidebar-content"></div>
+        <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <h4>Update user</h4>
+                    <form th:object="${userUpdate}" class="form-horizontal"
+                          th:action="@{'/admin/users/'+ ${userUpdate.id} + '/update'}"
+                          method="post">
+
+                        <div class="form-group">
+                            <label for="id"
+                                   class="col-sm-2 control-label">
+                                User Id
+                            </label>
+                            <input class="form-control"
+                                   type="text"
+                                   id="id"
+                                   placeholder="Id"
+                                   readonly
+                                   th:field="*{id}">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="col-sm-2 control-label">
+                                Name
+                            </label>
+                            <input class="form-control"
+                                   type="text"
+                                   id="name"
+                                   placeholder=" Name"
+                                   th:field="*{name}"
+                                   th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : 'is-valid'">
+
+
+                            <div th:if="${#fields.hasErrors('name')}"
+                                 th:errors="*{name}"
+                                 class="invalid-feedback">
+                                Error in field
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone"
+                                   class="col-sm-2 control-label">
+                                Telephone
+                            </label>
+                            <input class="form-control"
+                                   type="text"
+                                   id="telephone"
+                                   placeholder="Telephone"
+                                   readonly
+                                   th:field="*{telephone}"
+                                   th:classappend="${#fields.hasErrors('telephone')} ? 'is-invalid' : 'is-valid'">
+
+
+                            <div th:if="${#fields.hasErrors('telephone')}"
+                                 th:errors="*{telephone}"
+                                 class="invalid-feedback">
+                                Error in field
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"
+                                   class="col-sm-2 control-label">
+                                Email
+                            </label>
+                            <input class="form-control"
+                                   type="email"
+                                   id="email"
+                                   readonly
+                                   placeholder="name@example.com"
+                                   th:field="*{email}"
+                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : 'is-valid'">
+
+
+                            <div th:if="${#fields.hasErrors('email')}"
+                                 th:errors="*{email}"
+                                 class="invalid-feedback">
+                                Error in field
+                            </div>
+                        </div>
+                        <input type="hidden"
+                               name="${_csrf.parameterName}"
+                               value="${_csrf.token}"/>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button class="btn btn-outline-primary"
+                                        type="submit">
+                                    Update user
+                                </button>
+                                <a class="btn btn-outline-primary" href="/admin/users">
+                                    Back to list users
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <div th:replace="fragments/footer :: footer-content"></div>
+    </div>
+</div>
+<div th:include="fragments/footer :: footer-scripts"></div>
+</body>
+</html>
