@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface MonthBudgetRepository extends JpaRepository<MonthBudget, Long> {
     List<MonthBudget> findMonthBudgetByUser_Email(String login);
+
+    MonthBudget findMonthBudgetById(Long id);
 }

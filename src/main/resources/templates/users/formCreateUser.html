@@ -3,16 +3,16 @@
 <head th:replace="fragments/header :: header-content">
 </head>
 <body>
-<div th:replace="navs/nav :: nav-content"></div>
+<!--<div th:replace="navs/nav :: nav-content"></div>-->
 <div class="container-fluid">
     <div class="row">
-        <div th:replace="navs/sidebar :: sidebar-content"></div>
+        <!--<div th:replace="navs/sidebar :: sidebar-content"></div>-->
         <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
             <div class="row justify-content-center">
                 <div class="col-6">
                     <h4>Create new user</h4>
                     <form th:object="${newUser}" class="form-horizontal"
-                          th:action="@{/admin/users/new}" method="post">
+                          th:action="@{/register}" method="post">
                         <div class="form-group">
                             <label for="name"
                                    class="col-sm-2 control-label">
@@ -87,23 +87,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label
-                                    class="col-sm-2 control-label">Role</label>
-                            <select class="form-control"
-                                    name="category"
-                                    th:field="*{role}"
-                                    th:classappend="${#fields.hasErrors('role')} ? 'is-invalid' : 'is-valid'">
 
-                                <option th:each="role : ${roles}"
-                                        th:value="${role.name}"
-                                        th:text="${role.name}">
-                                </option>
-                            </select>
-                            <div th:if="${#fields.hasErrors('role')}"
-                                 th:errors="*{role}"
-                                 class="invalid-feedback">
-                                Error in field
-                            </div>
                         </div>
 
 
@@ -117,9 +101,9 @@
                                         type="submit">
                                     Create user
                                 </button>
-                                    <a class="btn btn-outline-primary" href="/admin/users">
-                                        Back to list users
-                                    </a>
+                                <a class="btn btn-outline-primary" href="/users">
+                                    Back
+                                </a>
                             </div>
                         </div>
                     </form>

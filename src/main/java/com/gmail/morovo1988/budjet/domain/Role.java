@@ -1,14 +1,14 @@
 package com.gmail.morovo1988.budjet.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
 public class Role {
+//    @Id
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String name;
 
     public Role() {

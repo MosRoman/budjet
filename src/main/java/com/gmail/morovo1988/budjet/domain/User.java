@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -25,10 +26,16 @@ import java.util.*;
 //        }
 //)
 public class User {
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @SequenceGenerator(name = "native", initialValue = 5, allocationSize = 1)
-    @Id
-    private long id;
+//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+//    @SequenceGenerator(name = "native", initialValue = 5, allocationSize = 1)
+//    @Id
+//    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq" )
+//@Id
+//@GeneratedValue(strategy = GenerationType.AUTO)
+@Id
+@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+@SequenceGenerator(name = "sequenceGenerator", sequenceName = "users_sequence", initialValue = 20,  allocationSize = 1)
+    private Long id;
 
     @Size(max = 50)
     @NotBlank(message = "must not be blank")
@@ -43,6 +50,7 @@ public class User {
     private String password;
 
     @NotNull
+    @Email
     @NotBlank(message = "must not be blank")
     @Column(length = 100, unique = true)
     private String email;
@@ -83,17 +91,15 @@ public class User {
         this.roles = roles;
     }
 
+
+
     public void addRole(Role role) {
         this.roles.add(role);
     }
 
-    public long getId() {
-        return id;
-    }
+    public Long getId() {    return id;    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void setId(Long id) {        this.id = id;    }
 
     public String getName() {
         return name;

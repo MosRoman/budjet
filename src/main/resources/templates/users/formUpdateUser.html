@@ -12,7 +12,7 @@
                 <div class="col-6">
                     <h4>Update user</h4>
                     <form th:object="${userUpdate}" class="form-horizontal"
-                          th:action="@{'/admin/users/'+ ${userUpdate.id} + '/update'}"
+                          th:action="@{'/users/'+ ${userUpdate.id} + '/update'}"
                           method="post">
 
                         <div class="form-group">
@@ -57,7 +57,7 @@
                                    type="text"
                                    id="telephone"
                                    placeholder="Telephone"
-                                   readonly
+
                                    th:field="*{telephone}"
                                    th:classappend="${#fields.hasErrors('telephone')} ? 'is-invalid' : 'is-valid'">
 
@@ -76,7 +76,7 @@
                             <input class="form-control"
                                    type="email"
                                    id="email"
-                                   readonly
+
                                    placeholder="name@example.com"
                                    th:field="*{email}"
                                    th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : 'is-valid'">
@@ -97,7 +97,7 @@
                                         type="submit">
                                     Update user
                                 </button>
-                                <a class="btn btn-outline-primary" href="/admin/users">
+                                <a class="btn btn-outline-primary" href="/users">
                                     Back to list users
                                 </a>
                             </div>

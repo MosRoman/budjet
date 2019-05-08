@@ -28,6 +28,66 @@
     <script>
       feather.replace()
     </script>
+
+    <!--<script>-->
+        <!--let more = document.querySelector('.more'),-->
+            <!--overlay = document.querySelector('.overlay'),-->
+            <!--close = document.querySelector('.popup-close'),-->
+            <!--btn = document.querySelectorAll('.description-btn');-->
+
+
+        <!--more.addEventListener('click', function () {-->
+            <!--overlay.style.display = 'block';-->
+            <!--this.classList.add('more-splash');-->
+            <!--document.body.style.overflow = 'hidden';-->
+
+        <!--});-->
+
+        <!--close.addEventListener('click', function () {-->
+            <!--overlay.style.display = 'none';-->
+            <!--more.classList.remove('more-splash');-->
+            <!--document.body.style.overflow = '';-->
+        <!--});-->
+    <!--</script>-->
+    <script>
+        $(function () {
+            $('.owl-carousel').owlCarousel({
+                loop:true,
+                margin:10,
+                nav:true,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:2
+                    },
+                    1000:{
+                        items:3
+                    }
+                }
+            })
+
+        });
+
+
+        var modal = document.querySelector("#modal"),
+            modalOverlay = document.querySelector("#modal-overlay"),
+            closeButton = document.querySelector("#close-button"),
+            openButton = document.querySelector("#open-button");
+
+        closeButton.addEventListner("click", function(){
+            modal.classList.toggle("closed");
+            modalOverlay.classList.toggle("closed");
+        });
+
+        openButton.addEventListner("click", function(){
+            modal.classList.toggle("closed");
+            modalOverlay.classList.toggle("closed");
+        });
+
+    </script>
+    <script th:src="@{styles/owl.carousel.min.js}"></script>
 </div>
 </body>
 </html>
