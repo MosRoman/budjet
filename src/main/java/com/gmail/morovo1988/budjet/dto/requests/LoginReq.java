@@ -7,7 +7,6 @@ import javax.validation.constraints.Size;
 
 public class LoginReq {
 
-
     @NotNull
     @Size(min = 1, max = 50)
     private String email;
