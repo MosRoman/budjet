@@ -17,7 +17,7 @@ public class Income {
 
     private String description;
 
-    private int amount;
+    private Double amount;
 
     @ManyToOne
     @JoinColumn(name = "monthBudget_id")
@@ -26,7 +26,7 @@ public class Income {
     public Income() {
     }
 
-    public Income(String description, int amount, MonthBudget monthBudget) {
+    public Income(String description, Double amount, MonthBudget monthBudget) {
         this.description = description;
         this.amount = amount;
         this.monthBudget = monthBudget;
@@ -48,11 +48,11 @@ public class Income {
         this.description = description;
     }
 
-    public int getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

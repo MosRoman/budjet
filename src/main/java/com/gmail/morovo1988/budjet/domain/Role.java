@@ -6,7 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "roles")
 public class Role {
-//    @Id
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String name;

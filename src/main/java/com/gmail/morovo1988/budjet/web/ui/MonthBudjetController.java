@@ -1,14 +1,12 @@
 package com.gmail.morovo1988.budjet.web.ui;
 
-import com.gmail.morovo1988.budjet.converters.GenericConverter;
 import com.gmail.morovo1988.budjet.domain.Expense;
 import com.gmail.morovo1988.budjet.domain.Income;
 import com.gmail.morovo1988.budjet.domain.MonthBudget;
 import com.gmail.morovo1988.budjet.domain.User;
 import com.gmail.morovo1988.budjet.dto.requests.ExpenseWebFormReq;
 import com.gmail.morovo1988.budjet.dto.requests.IncomeWebFormReq;
-import com.gmail.morovo1988.budjet.repositories.ExpenseRepository;
-import com.gmail.morovo1988.budjet.repositories.IncomeRepository;
+import com.gmail.morovo1988.budjet.services.ExpenseService;
 import com.gmail.morovo1988.budjet.services.IncomeService;
 import com.gmail.morovo1988.budjet.services.MonthBudjetService;
 import com.gmail.morovo1988.budjet.services.UserService;
@@ -30,23 +28,21 @@ public class MonthBudjetController {
 
     private final IncomeService incomeService;
 
-    private final IncomeRepository incomeRepository;
-
-    private final ExpenseRepository expenseRepository;
+    private final ExpenseService expenseService;
 
     private final UserService userService;
 
-    private final GenericConverter<Expense, ExpenseWebFormReq> genericConverter;
-
     @Autowired
-    public MonthBudjetController(MonthBudjetService budjetService, IncomeService incomeService, IncomeRepository incomeRepository, ExpenseRepository expenseRepository, UserService userService, GenericConverter<Expense, ExpenseWebFormReq> genericConverter) {
+    public MonthBudjetController(MonthBudjetService budjetService,
+                                 IncomeService incomeService,
+                                 ExpenseService expenseService,
+                                 UserService userService) {
         this.budjetService = budjetService;
         this.incomeService = incomeService;
-        this.incomeRepository = incomeRepository;
-        this.expenseRepository = expenseRepository;
+        this.expenseService = expenseService;
         this.userService = userService;
 
-        this.genericConverter = genericConverter;
+
     }
 
     @GetMapping("/monthBudget/{monthId}")
@@ -56,12 +52,15 @@ public class MonthBudjetController {
 
     ) {
         final MonthBudget monthBudget = this.budjetService.findBudjetById(id);
+        model.addAttribute("totalSumExpense",this.expenseService.sumExpenses(this.budjetService.findBudjetById(id)));
+        model.addAttribute("totalSumIncome",this.incomeService.sumExpenses(this.budjetService.findBudjetById(id)));
         model.addAttribute("expense", new Expense());
         model.addAttribute("income", new Income());
         model.addAttribute("monthBudget", monthBudget);
         model.addAttribute("expenses", monthBudget.getExpenses());
         model.addAttribute("incomes", monthBudget.getIncomes());
         model.addAttribute("user", this.userService.loadUserByEmail(SecurityUtils.getCurrentUserLogin()).getName());
+
         return "monthBudget/monthBudgetDetails";
     }
 
@@ -70,7 +69,8 @@ public class MonthBudjetController {
     public String formCreateExpense(final @PathVariable("monthId") Long id,
                                     final Model model) {
         final MonthBudget monthBudget = this.budjetService.findBudjetById(id);
-        model.addAttribute("expense", new Expense());
+
+        model.addAttribute("expense", new ExpenseWebFormReq());
         model.addAttribute("monthBudget", monthBudget);
         model.addAttribute("user", this.userService.loadUserByEmail(SecurityUtils.getCurrentUserLogin()).getName());
         return "monthBudget/createExpense";
@@ -78,7 +78,7 @@ public class MonthBudjetController {
 
 
     @PostMapping("/monthBudget/{id}/expense")
-    public String addExpense(@ModelAttribute("expense") final @Valid Expense req,
+    public String addExpense(@ModelAttribute("expense") final @Valid ExpenseWebFormReq req,
                              final BindingResult bindingResult,
                              final Model model,
                              @PathVariable("id") final Long id
@@ -89,11 +89,8 @@ public class MonthBudjetController {
             model.addAttribute("monthBudget", monthBudget);
             return "monthBudget/monthBudgetDetails";
         }
-//        final Expense expense = this.genericConverter.createFromDto(req);
-        req.setMonthBudget(monthBudget);
-//        expense.setAmount(req.getAmount());
-//        expense.setDescription(req.getDescription());
-        this.expenseRepository.save(req);
+        req.setIdBudget(id);
+        this.expenseService.createExpenseFromWeb(req);
 
         return "redirect:/monthBudget/{id}";
 

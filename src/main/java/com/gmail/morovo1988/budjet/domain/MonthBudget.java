@@ -2,6 +2,7 @@ package com.gmail.morovo1988.budjet.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,25 +13,9 @@ import java.util.List;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
-//@GenericGenerator(
-//        name = "seq",
-//        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-//        parameters = {
-//                @org.hibernate.annotations.Parameter(
-//                        name = "sequence_name",
-//                        value = "public" + '.' + "hibernate_sequence"
-//                ),
-//                @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
-//        }
-//)
-public class MonthBudget {
-//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-//    @SequenceGenerator(name = "native", initialValue = 5, allocationSize = 1)
-//    @Id
 
-    //@Id
-//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq" )
-//@GeneratedValue(strategy = GenerationType.AUTO)
+public class MonthBudget {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator", sequenceName = "month_budget_sequence", initialValue = 20, allocationSize = 1)
@@ -50,9 +35,18 @@ public class MonthBudget {
     @JoinColumn(name = "users_id")
     private User user;
 
+    private Double result = 0d;
+
     public MonthBudget() {
     }
 
+    public Double getResult() {
+        return result;
+    }
+
+    public void setResult(Double result) {
+        this.result = result;
+    }
 
     public Long getId() {
         return id;
@@ -93,4 +87,4 @@ public class MonthBudget {
     public void setUser(User user) {
         this.user = user;
     }
-}
+  }

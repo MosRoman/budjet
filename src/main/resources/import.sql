@@ -7,13 +7,13 @@ insert into roles (name) values ('ROLE_USER');
 insert into users_roles (user_id, roles_name) values (1,'ROLE_ADMIN')
 insert into users_roles (user_id, roles_name) values (2,'ROLE_USER');
 
-insert into month_budget (id, local_date, users_id) values (11, '2018-11-28', 1);
-insert into month_budget (id, local_date, users_id) values (12, '2018-12-28', 1);
-insert into month_budget (id, local_date, users_id) values (13, '2019-01-28', 1);
-insert into month_budget (id, local_date, users_id) values (14, '2019-02-28', 1);
+insert into month_budget (id, local_date, users_id, result) values (11, '2018-11-28', 1, 0);
+insert into month_budget (id, local_date, users_id, result) values (12, '2018-12-28', 1, 0);
+insert into month_budget (id, local_date, users_id, result) values (13, '2019-01-28', 1, 0);
+insert into month_budget (id, local_date, users_id, result) values (14, '2019-02-28', 1, 0);
 
-insert into month_budget (id, local_date, users_id) values (15, '2019-03-28', 1);
-insert into month_budget (id, local_date, users_id) values (16, '2019-04-28', 1);
+insert into month_budget (id, local_date, users_id, result) values (15, '2019-03-28', 1, 0);
+insert into month_budget (id, local_date, users_id, result) values (16, '2019-04-28', 1, 0);
 
 
 -- insert into income (id, description, amount, month_budget_id ) values (21, 'paymant', 10000, 11);

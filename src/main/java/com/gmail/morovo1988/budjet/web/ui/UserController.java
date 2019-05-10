@@ -7,6 +7,8 @@ import com.gmail.morovo1988.budjet.exceptions.InternalServerException;
 import com.gmail.morovo1988.budjet.exceptions.UserNotFoundException;
 import com.gmail.morovo1988.budjet.repositories.MonthBudgetRepository;
 import com.gmail.morovo1988.budjet.repositories.RoleRepository;
+import com.gmail.morovo1988.budjet.services.ExpenseService;
+import com.gmail.morovo1988.budjet.services.IncomeService;
 import com.gmail.morovo1988.budjet.services.UserService;
 import com.gmail.morovo1988.budjet.utils.SecurityUtils;
 import com.gmail.morovo1988.budjet.validations.UniqueEmailForNewUser;
@@ -30,14 +32,26 @@ public class UserController {
 
     private MonthBudgetRepository monthBudgetRepository;
 
+    private final IncomeService incomeService;
+
+    private final ExpenseService expenseService;
+
     private final UniqueEmailForNewUser emailForNewUser;
 
     private final UniqueEmailForUpdateUser uniqueEmailForUpdateUser;
 
     @Autowired
-    public UserController(UserService userService, RoleRepository roleRepository, UniqueEmailForNewUser emailForNewUser, MonthBudgetRepository monthBudgetRepository, UniqueEmailForUpdateUser uniqueEmailForUpdateUser) {
+    public UserController(UserService userService,
+                          RoleRepository roleRepository,
+                          IncomeService incomeService,
+                          ExpenseService expenseService,
+                          UniqueEmailForNewUser emailForNewUser,
+                          MonthBudgetRepository monthBudgetRepository,
+                          UniqueEmailForUpdateUser uniqueEmailForUpdateUser) {
         this.userService = userService;
         this.roleRepository = roleRepository;
+        this.incomeService = incomeService;
+        this.expenseService = expenseService;
         this.emailForNewUser = emailForNewUser;
         this.monthBudgetRepository = monthBudgetRepository;
         this.uniqueEmailForUpdateUser = uniqueEmailForUpdateUser;
@@ -55,6 +69,7 @@ public class UserController {
 
     @GetMapping(value = "/")
     public String wellcome(Model model) {
+
         model.addAttribute("monthBudget", new MonthBudget());
         model.addAttribute("monthBudgets", this.monthBudgetRepository.findMonthBudgetByUser_Email(SecurityUtils.getCurrentUserLogin()));
         model.addAttribute("user", this.userService.loadUserByEmail(SecurityUtils.getCurrentUserLogin()).getName());

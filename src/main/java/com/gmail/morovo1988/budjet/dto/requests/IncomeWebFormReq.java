@@ -5,19 +5,19 @@ import java.util.Objects;
 public class IncomeWebFormReq {
     private String description;
 
-    private int amount;
+    private Double amount;
 
     private Long idBudget;
 
     public IncomeWebFormReq() {
     }
 
-    public IncomeWebFormReq(String description, int amount) {
+    public IncomeWebFormReq(String description, Double amount) {
         this.description = description;
         this.amount = amount;
     }
 
-    public IncomeWebFormReq(String description, int amount, Long idBudget) {
+    public IncomeWebFormReq(String description, Double amount, Long idBudget) {
         this.description = description;
         this.amount = amount;
         this.idBudget = idBudget;
@@ -39,11 +39,11 @@ public class IncomeWebFormReq {
         this.description = description;
     }
 
-    public int getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

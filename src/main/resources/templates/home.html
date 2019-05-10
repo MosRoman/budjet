@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header-content">
 </head>
 <body>
@@ -11,77 +9,44 @@
         <div th:replace="navs/sidebar :: sidebar-content"></div>
         <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
 
-
-            <h2>Month Budget</h2>
+            <h2 th:align="center">Month Budgets</h2>
             <div class="table-responsive">
-                <!--<table class="table table-striped table-sm">-->
 
-                    <div class="owl-carousel owl-theme">
-                        <div class="item" th:each="budget : ${monthBudgets}">
+                <div class="owl-carousel owl-theme">
 
-                            <!--<h4 th:text="${budget.id}"></h4>-->
+                    <div class="item" th:each="budget : ${monthBudgets}">
 
+                        <h4 th:text="${budget.localDate.getMonth()}+' - '+${budget.localDate.getYear()}"
+                            th:align="center"></h4>
 
-                            <h4 th:text="${budget.localDate.getMonth()}+' - '+${budget.localDate.getYear()}"></h4>
+                        <h4 th:text="${budget.result}" th:align="center">
 
-                            <h4>
+                        </h4>
 
-                                <a th:href="@{'/monthBudget/' + ${budget.id}}"
-                                   class="btn btn-info" href="#">
-                                    <span data-feather="edit"></span>
-                                </a>
+                        <tr>
 
-                            </h4>
+                            <a th:href="@{'/monthBudget/' + ${budget.id}}"
+                               class="btn btn-info btn-lg btn-block" href="#">
+                                <span data-feather="edit"></span>
+                            </a>
                             <form class="form-inline"
                                   th:action="@{'budget/'+${budget.id} + '/delete'}"
                                   method="post">
                                 <input type="hidden"
                                        name="${_csrf.parameterName}"
                                        value="${_csrf.token}"/>
-                                <button class="btn btn-danger" type="submit">
+                                <button class="btn btn-secondary btn-lg btn-block" type="submit">
                                     <span data-feather="trash"></span>
                                 </button>
                             </form>
-                        </div>
 
+                        </tr>
 
                     </div>
 
+                </div>
 
-
-                <!--<p>-->
-
-                    <!--<a class="btn btn-outline-primary" href="#openModalMonth" >Add new Month</a>-->
-                <!--<div id="openModalMonth" class="modalDialog">-->
-                    <!--<div>-->
-                        <!--<a href="" title="Закрыть" class="close">X</a>-->
-                        <!--<h2>Create new Month</h2>-->
-                        <!--<nav class="navbar navbar-default">-->
-                            <!--<div class="container-fluid">-->
-                                <!--<form class="form-horizontal" th:object="${monthBudget}"-->
-                                      <!--th:action="@{/add_month_budget}"-->
-                                      <!--method="post" th:align="center">-->
-
-                                    <!--<div class="form-group mx-sm-3 mb-2">-->
-                                        <!--<label for="monthBudget" class="sr-only">Month</label>-->
-                                        <!--<input type="text" class="form-control" id="monthBudget" placeholder="Month"-->
-                                               <!--th:field="*{localDate}" >-->
-
-                                    <!--</div>-->
-                                    <!--<button type="submit" class="btn btn-primary mb-2">Add Month</button>-->
-                                <!--</form>-->
-
-
-                            <!--</div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
-                        <!--</nav>-->
-                        <!--&lt;!&ndash;<a href="" title="add Expense">Add Expense</a>&ndash;&gt;-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--</p>-->
-
-                <p>
-
-                    <a class="btn btn-outline-primary" href="#openModalMonth" >Add new Month</a>
+                <a class="btn btn-outline-primary" href="#openModalMonth">Add new Month</a>
                 <div id="openModalMonth" class="modalDialog">
                     <div>
                         <a href="" title="Закрыть" class="close">X</a>
@@ -95,40 +60,20 @@
                                     <div class="form-group mx-sm-3 mb-2">
                                         <label for="monthBudget" class="sr-only">Month</label>
                                         <input type="month" class="form-control" id="monthBudget" placeholder="Month"
-                                               name="month" >
+                                               name="month">
 
                                     </div>
                                     <button type="submit" class="btn btn-primary mb-2">Add Month</button>
                                 </form>
 
 
-                            </div><!-- /.container-fluid -->
+                            </div>
                         </nav>
-                        <!--<a href="" title="add Expense">Add Expense</a>-->
+
                     </div>
                 </div>
-                </p>
 
-                <!--<p>-->
-
-                    <!--<a th:href="@{'/admin/users/' + ${user.id} + '/update'}"-->
-                       <!--class="btn btn-info" href="#">-->
-                        <!--<span data-feather="edit"></span>-->
-                    <!--</a>-->
-                    <!--<form class="form-inline"-->
-                          <!--th:action="@{${user.id} + '/delete'}"-->
-                          <!--method="post">-->
-                        <!--<input type="hidden"-->
-                               <!--name="${_csrf.parameterName}"-->
-                               <!--value="${_csrf.token}"/>-->
-                        <!--<button class="btn btn-danger" type="submit">-->
-                            <!--<span data-feather="trash"></span>-->
-                        <!--</button>-->
-                    <!--</form>-->
-                <!--</p>-->
             </div>
-
-
 
 
         </main>

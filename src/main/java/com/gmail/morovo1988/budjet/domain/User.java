@@ -14,24 +14,9 @@ import java.util.*;
 
 @Entity
 @Table(name = "users")
-//@GenericGenerator(
-//        name = "seq",
-//        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-//        parameters = {
-//                @Parameter(
-//                        name = "sequence_name",
-//                        value = "public" + '.' + "hibernate_sequence"
-//                ),
-//                @Parameter(name = "increment_size", value = "1")
-//        }
-//)
+
 public class User {
-//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-//    @SequenceGenerator(name = "native", initialValue = 5, allocationSize = 1)
-//    @Id
-//    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq" )
-//@Id
-//@GeneratedValue(strategy = GenerationType.AUTO)
+
 @Id
 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "users_sequence", initialValue = 20,  allocationSize = 1)

@@ -25,6 +25,29 @@
                     <p th:text="${monthBudget.localDate.getMonth()}+' - '+${monthBudget.localDate.getYear()}"></p>
                 </dd>
 
+                <dt class="col-sm-3">Sum Expenses</dt>
+                <dd class="col-sm-9">
+                    <div th:switch="${totalSumExpense}==null">
+                        <p th:case="true">0</p>
+                        <p th:case="false">
+                        <p th:text="${totalSumExpense}" ></p>
+                        </p>
+                    </div>
+
+                </dd>
+
+                <dt class="col-sm-3">Sum Incomes</dt>
+                <dd class="col-sm-9">
+                    <div th:switch="${totalSumIncome}==null">
+                        <p th:case="true">0</p>
+                        <p th:case="false">
+                        <p th:text="${totalSumIncome}" ></p>
+                        </p>
+                    </div>
+
+                </dd>
+
+
             </dl>
 
             <div class="container">
@@ -55,7 +78,7 @@
 
                             </table>
 
-                            <a class="btn btn-outline-primary" href="#openModalExpense">Add new Expense</a>
+                            <a class="btn btn-outline-primary btn-lg btn-block" href="#openModalExpense">Add new Expense</a>
                             <div id="openModalExpense" class="modalDialog">
                                 <div>
                                     <a href="" title="Закрыть" class="close">X</a>
@@ -120,7 +143,7 @@
 
                             </table>
 
-                            <a class="btn btn-outline-primary" href="#openModalIncome">Add new Income</a>
+                            <a class="btn btn-outline-primary btn-lg btn-block" href="#openModalIncome">Add new Income</a>
                             <div id="openModalIncome" class="modalDialog">
                                 <div>
                                     <a href="" title="Закрыть" class="close">X</a>
