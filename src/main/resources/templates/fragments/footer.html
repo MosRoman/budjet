@@ -15,55 +15,37 @@
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
     <script
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-        crossorigin="anonymous"></script>
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+            crossorigin="anonymous"></script>
+
 
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
-      feather.replace()
+        feather.replace()
     </script>
 
-    <!--<script>-->
-        <!--let more = document.querySelector('.more'),-->
-            <!--overlay = document.querySelector('.overlay'),-->
-            <!--close = document.querySelector('.popup-close'),-->
-            <!--btn = document.querySelectorAll('.description-btn');-->
 
-
-        <!--more.addEventListener('click', function () {-->
-            <!--overlay.style.display = 'block';-->
-            <!--this.classList.add('more-splash');-->
-            <!--document.body.style.overflow = 'hidden';-->
-
-        <!--});-->
-
-        <!--close.addEventListener('click', function () {-->
-            <!--overlay.style.display = 'none';-->
-            <!--more.classList.remove('more-splash');-->
-            <!--document.body.style.overflow = '';-->
-        <!--});-->
-    <!--</script>-->
     <script>
         $(function () {
             $('.owl-carousel').owlCarousel({
-                loop:true,
-                margin:10,
-                nav:true,
-                responsive:{
-                    0:{
-                        items:1
+                loop: true,
+                margin: 10,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 1
                     },
-                    600:{
-                        items:2
+                    600: {
+                        items: 2
                     },
-                    1000:{
-                        items:3
+                    1000: {
+                        items: 3
                     }
                 }
             })
@@ -71,19 +53,26 @@
         });
 
 
-        var modal = document.querySelector("#modal"),
-            modalOverlay = document.querySelector("#modal-overlay"),
-            closeButton = document.querySelector("#close-button"),
-            openButton = document.querySelector("#open-button");
 
-        closeButton.addEventListner("click", function(){
-            modal.classList.toggle("closed");
-            modalOverlay.classList.toggle("closed");
-        });
 
-        openButton.addEventListner("click", function(){
-            modal.classList.toggle("closed");
-            modalOverlay.classList.toggle("closed");
+
+        $(document).ready(function () {
+            $('.table .eBtn').on('click', function (event) {
+
+                event.preventDefault();
+                var href = $(this).attr('href');
+
+                $.get(href, function (user, status) {
+                    $('myForm #id').val(user.id);
+                    $('myForm #name').val(user.name);
+                    $('myForm #email').val(user.email);
+                    $('myForm #telephone').val(user.telephone);
+                    $('myForm #password').val(user.password);
+                })
+
+                $('.myForm #exampleModal').modal();
+
+            })
         });
 
     </script>

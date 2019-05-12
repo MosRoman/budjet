@@ -126,6 +126,14 @@ public class User {
         this.roles = roles;
     }
 
+    public List<MonthBudget> getMonthBudgetList() {
+        return monthBudgetList;
+    }
+
+    public void setMonthBudgetList(List<MonthBudget> monthBudgetList) {
+        this.monthBudgetList = monthBudgetList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

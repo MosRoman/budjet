@@ -21,4 +21,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<UpdateUserReq> findUpdateUserReqById(@Param("id") Long id);
 
     Optional<User> findOneById(Long userId);
+
+    User findUserById(Long id);
 }

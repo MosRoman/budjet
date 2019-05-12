@@ -112,6 +112,12 @@ public class UserController {
         return "redirect:/users/";
     }
 
+    @GetMapping("/findOne")
+    @ResponseBody
+    public User findOne(Long id){
+        return this.userService.findUser(id);
+    }
+
     @GetMapping("users")
     public String listUsers(final Model model) {
         model.addAttribute("users", this.userService.findUsers());

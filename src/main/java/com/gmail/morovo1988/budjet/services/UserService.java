@@ -18,4 +18,6 @@ public interface UserService {
     Optional<UpdateUserReq> loadUpdateUserById(Long userId);
 
     User updateUser(UpdateUserReq updatedUser);
+
+    User findUser(Long id);
 }

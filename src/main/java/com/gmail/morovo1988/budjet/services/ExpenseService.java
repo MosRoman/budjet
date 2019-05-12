@@ -8,4 +8,6 @@ public interface ExpenseService {
     Expense createExpenseFromWeb(ExpenseWebFormReq expenseWebFormReq);
 
     Long sumExpenses(MonthBudget monthBudget);
+
+    void deleteExpenseById(Long id);
 }

@@ -1,5 +1,6 @@
 package com.gmail.morovo1988.budjet.services;
 
+import com.gmail.morovo1988.budjet.domain.MonthBudget;
 import com.gmail.morovo1988.budjet.domain.User;
 import com.gmail.morovo1988.budjet.dto.requests.UpdateUserReq;
 import com.gmail.morovo1988.budjet.exceptions.UserNotFoundException;
@@ -17,16 +18,22 @@ import java.util.Optional;
 public class USerServiceImpl implements UserService {
 
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public USerServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    private final MonthBudjetService budjetService;
+
+    public USerServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder,
+                           RoleRepository roleRepository,
+                           MonthBudjetService budjetService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.budjetService = budjetService;
     }
 
     @Override
@@ -51,6 +58,8 @@ public class USerServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
+        User user = this.userRepository.findUserById(id);
+        deleteListMonthBudget(user.getMonthBudgetList());
         this.userRepository.delete(this.userRepository.getOne(id));
     }
 
@@ -71,5 +80,17 @@ public class USerServiceImpl implements UserService {
                     return u;
                 }).orElseThrow(UserNotFoundException::new);
         return this.userRepository.save(user);
+    }
+
+    @Override
+    public User findUser(Long id) {
+        return this.userRepository.findUserById(id);
+    }
+
+    public void deleteListMonthBudget(List<MonthBudget> monthBudgets) {
+        for (MonthBudget m : monthBudgets) {
+            this.budjetService.deleteBudgetById(m.getId());
+
+        }
     }
 }

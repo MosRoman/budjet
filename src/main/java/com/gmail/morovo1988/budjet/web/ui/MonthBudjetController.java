@@ -153,4 +153,18 @@ public class MonthBudjetController {
         this.budjetService.deleteBudgetById(id);
         return "redirect:/";
     }
+
+    @PostMapping("/monthBudget/{idBudget}/income/{id}/delete")
+    public String deleteIncome(@PathVariable("id") final Long id, @PathVariable("id") final Long idBudget) {
+
+        this.incomeService.deleteIncomeById(id);
+        return "redirect:/monthBudget/{idBudget}";
+    }
+
+    @PostMapping("/monthBudget/{idBudget}/expense/{id}/delete")
+    public String deleteExpense(@PathVariable("id") final Long id, @PathVariable("id") final Long idBudget) {
+
+        this.expenseService.deleteExpenseById(id);
+        return "redirect:/monthBudget/{idBudget}";
+    }
 }

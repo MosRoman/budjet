@@ -38,4 +38,14 @@ public class IncomeServiceImpl implements IncomeService {
     public Long sumExpenses(MonthBudget monthBudget) {
         return this.incomeRepository.totalSumExpense(monthBudget);
     }
+
+    @Override
+    public Income findOne(Long id) {
+        return this.incomeRepository.getOne(id);
+    }
+
+    @Override
+    public void deleteIncomeById(Long id) {
+        this.incomeRepository.delete(this.incomeRepository.getOne(id));
+    }
 }

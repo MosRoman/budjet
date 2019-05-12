@@ -8,4 +8,9 @@ public interface IncomeService {
     Income creteIncomeFromWebForm(IncomeWebFormReq req);
 
     Long sumExpenses(MonthBudget monthBudget);
+
+    Income findOne(Long id);
+
+    void deleteIncomeById(Long id);
+
 }

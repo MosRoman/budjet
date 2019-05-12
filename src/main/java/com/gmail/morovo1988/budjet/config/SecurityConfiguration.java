@@ -38,12 +38,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.tokenProvider = tokenProvider;
     }
 
-//    @Autowired
-//    public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userDetailsService)
-//                .passwordEncoder(passwordEncoder());
-//    }
 
     @PostConstruct
     public void init() {

@@ -38,4 +38,9 @@ public class ExpenseServiceImpl implements ExpenseService {
     public Long sumExpenses(MonthBudget monthBudget) {
         return this.expenseRepository.totalSumExpense(monthBudget);
     }
+
+    @Override
+    public void deleteExpenseById(Long id) {
+        this.expenseRepository.delete(this.expenseRepository.getOne(id));
+    }
 }
