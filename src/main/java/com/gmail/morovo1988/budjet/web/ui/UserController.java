@@ -73,7 +73,7 @@ public class UserController {
         model.addAttribute("monthBudget", new MonthBudget());
         model.addAttribute("monthBudgets", this.monthBudgetRepository.findMonthBudgetByUser_Email(SecurityUtils.getCurrentUserLogin()));
         model.addAttribute("user", this.userService.loadUserByEmail(SecurityUtils.getCurrentUserLogin()).getName());
-        return "/home";
+        return "./home";
     }
 
     @GetMapping(value = "/admin")
@@ -82,14 +82,14 @@ public class UserController {
     }
 
 
-    @GetMapping("/register")
+    @GetMapping("/registration")
     public String displayFormCreateUser(final Model model) {
         model.addAttribute("newUser", new User());
         model.addAttribute("roles", this.roleRepository.findAll());
-        return "/users/formCreateUser";
+        return "./users/formCreateUser";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public String processFormCreateUser(
             @ModelAttribute("newUser") final @Valid User req,
             final BindingResult bindingResult,
@@ -100,7 +100,7 @@ public class UserController {
             model.addAttribute("newUser", req);
             model.addAttribute("roles", this.roleRepository.findAll());
 
-            return "/users/formCreateUser";
+            return "./users/formCreateUser";
         }
 
         final User user = this.userService.createUser(req);

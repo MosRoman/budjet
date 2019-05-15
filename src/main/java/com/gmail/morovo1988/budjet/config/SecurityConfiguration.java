@@ -10,12 +10,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.annotation.PostConstruct;
 
@@ -38,6 +40,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.tokenProvider = tokenProvider;
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @PostConstruct
     public void init() {
@@ -51,39 +57,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         }
     }
 
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/security/**").permitAll()
-                .antMatchers("/styles/**").permitAll()
-                .antMatchers("/images/**").permitAll()
-                .antMatchers("/register").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/swagger-ui.html*").hasAnyRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .usernameParameter("email")
-                .defaultSuccessUrl("/")
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .logoutSuccessUrl("/login")
-                .deleteCookies("JSESSIONID")
-                .permitAll()
-                .and()
-                .exceptionHandling();
-
-        http.headers().frameOptions().disable();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Configuration
     @Order(1)
@@ -119,6 +92,69 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             return super.authenticationManagerBean();
         }
 
+    }
+
+    @Configuration
+    @Order(2)
+    public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+
+        //        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
+//            http
+//                    .authorizeRequests()
+//                    .antMatchers("/resources/**").permitAll()
+//                    .antMatchers( "/security/**").permitAll()
+//                    .antMatchers( "/users/**").permitAll()
+//                    .antMatchers("/styles/**").permitAll()
+//                    .antMatchers("/images/**").permitAll()
+//                    .antMatchers("/register").permitAll()
+//                    .antMatchers("/admin/**").hasAnyRole("ADMIN")
+//                    .antMatchers("/swagger-ui.html*").hasAnyRole("ADMIN")
+//                    .anyRequest().authenticated()
+//                    .and()
+//                    .formLogin()
+//                    .usernameParameter("email")
+//                    .defaultSuccessUrl("/")
+//                    .loginPage("/login")
+//                    .permitAll()
+//                    .and()
+//                    .logout()
+//                    .logoutSuccessUrl("/login")
+//                    .deleteCookies("JSESSIONID")
+//                    .permitAll()
+//                    .and()
+//                    .exceptionHandling();
+//
+//            http.headers().frameOptions().disable();
+//        }
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+
+            http.
+                    authorizeRequests()
+                    .antMatchers("/login").permitAll()
+                    .antMatchers("/registration").permitAll()
+                    .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+                    .authenticated()
+                    .and()
+//                    .csrf().disable()
+                    .formLogin()
+                    .loginPage("/login").failureUrl("/login?error=true")
+                    .defaultSuccessUrl("/")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .and().logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login").and().exceptionHandling()
+                    .accessDeniedPage("/access-denied");
+        }
+
+        @Override
+        public void configure(WebSecurity web) throws Exception {
+            web
+                    .ignoring()
+                    .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/styles/**");
+        }
     }
 
 }
