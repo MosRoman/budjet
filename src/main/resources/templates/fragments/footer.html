@@ -55,25 +55,25 @@
 
 
 
-
-        $(document).ready(function () {
-            $('.table .eBtn').on('click', function (event) {
-
-                event.preventDefault();
-                var href = $(this).attr('href');
-
-                $.get(href, function (user, status) {
-                    $('myForm #id').val(user.id);
-                    $('myForm #name').val(user.name);
-                    $('myForm #email').val(user.email);
-                    $('myForm #telephone').val(user.telephone);
-                    $('myForm #password').val(user.password);
-                })
-
-                $('.myForm #exampleModal').modal();
-
-            })
-        });
+        //
+        // $(document).ready(function () {
+        //     $('.table .eBtn').on('click', function (event) {
+        //
+        //         event.preventDefault();
+        //         var href = $(this).attr('href');
+        //
+        //         $.get(href, function (user, status) {
+        //             $('myForm #id').val(user.id);
+        //             $('myForm #name').val(user.name);
+        //             $('myForm #email').val(user.email);
+        //             $('myForm #telephone').val(user.telephone);
+        //             $('myForm #password').val(user.password);
+        //         })
+        //
+        //         $('.myForm #exampleModal').modal();
+        //
+        //     })
+        // });
 
     </script>
     <script th:src="@{styles/owl.carousel.min.js}"></script>
