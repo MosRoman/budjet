@@ -55,7 +55,7 @@ public class User {
 //    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     private List<MonthBudget> monthBudgetList = new ArrayList<>();
 
     public User() {

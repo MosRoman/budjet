@@ -14,33 +14,34 @@
 
                 <div class="owl-carousel owl-theme">
 
-                    <div class="item" th:each="budget : ${monthBudgets}">
+                    <div class="container" th:each="budget : ${monthBudgets}" style="background: #4DC7CC; border: 1px solid; border-color: #00d9ff; border-radius: .3rem;  ">
 
                         <h4 th:text="${budget.localDate.getMonth()}+' - '+${budget.localDate.getYear()}"
                             th:align="center"></h4>
 
-                        <h4 th:text="'Total result of budge: '+${budget.result}" th:align="center">
+                        <h4 th:text="'Total result of budge: '+${budget.result}" th:align="center"></h4>
 
-                        </h4>
+                        <div class="row align-items-end">
+                            <div class="col">
+                                <a th:href="@{'/monthBudget/' + ${budget.id}}"
+                                   class="btn btn-info btn-lg btn-block m-0" href="#">
+                                    <span data-feather="edit"></span>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <form class="form-inline m-0"
+                                      th:action="@{'budget/'+${budget.id} + '/delete'}"
+                                      method="post">
+                                    <input type="hidden"
+                                           name="${_csrf.parameterName}"
+                                           value="${_csrf.token}"/>
+                                    <button class="btn btn-secondary btn-lg btn-block" type="submit">
+                                        <span data-feather="trash"></span>
+                                    </button>
+                                </form>
+                            </div>
 
-                        <tr>
-
-                            <a th:href="@{'/monthBudget/' + ${budget.id}}"
-                               class="btn btn-info btn-lg btn-block" href="#">
-                                <span data-feather="edit"></span>
-                            </a>
-                            <form class="form-inline"
-                                  th:action="@{'budget/'+${budget.id} + '/delete'}"
-                                  method="post">
-                                <input type="hidden"
-                                       name="${_csrf.parameterName}"
-                                       value="${_csrf.token}"/>
-                                <button class="btn btn-secondary btn-lg btn-block" type="submit">
-                                    <span data-feather="trash"></span>
-                                </button>
-                            </form>
-
-                        </tr>
+                        </div>
 
                     </div>
 

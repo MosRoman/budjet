@@ -2,7 +2,6 @@ package com.gmail.morovo1988.budjet.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,11 +22,11 @@ public class MonthBudget {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate localDate;
 
-    @OneToMany(mappedBy = "monthBudget")
+    @OneToMany(mappedBy = "monthBudget", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Income> incomes;
 
-    @OneToMany(mappedBy = "monthBudget")
+    @OneToMany(mappedBy = "monthBudget", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Expense> expenses;
 
@@ -87,4 +86,4 @@ public class MonthBudget {
     public void setUser(User user) {
         this.user = user;
     }
-  }
+}

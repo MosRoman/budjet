@@ -98,35 +98,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Order(2)
     public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-        //        @Override
-//        protected void configure(HttpSecurity http) throws Exception {
-//            http
-//                    .authorizeRequests()
-//                    .antMatchers("/resources/**").permitAll()
-//                    .antMatchers( "/security/**").permitAll()
-//                    .antMatchers( "/users/**").permitAll()
-//                    .antMatchers("/styles/**").permitAll()
-//                    .antMatchers("/images/**").permitAll()
-//                    .antMatchers("/register").permitAll()
-//                    .antMatchers("/admin/**").hasAnyRole("ADMIN")
-//                    .antMatchers("/swagger-ui.html*").hasAnyRole("ADMIN")
-//                    .anyRequest().authenticated()
-//                    .and()
-//                    .formLogin()
-//                    .usernameParameter("email")
-//                    .defaultSuccessUrl("/")
-//                    .loginPage("/login")
-//                    .permitAll()
-//                    .and()
-//                    .logout()
-//                    .logoutSuccessUrl("/login")
-//                    .deleteCookies("JSESSIONID")
-//                    .permitAll()
-//                    .and()
-//                    .exceptionHandling();
-//
-//            http.headers().frameOptions().disable();
-//        }
         @Override
         protected void configure(HttpSecurity http) throws Exception {
 
@@ -153,7 +124,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         public void configure(WebSecurity web) throws Exception {
             web
                     .ignoring()
-                    .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/styles/**");
+                    .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/styles/**");
         }
     }
 

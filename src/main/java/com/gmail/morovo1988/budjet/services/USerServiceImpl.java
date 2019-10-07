@@ -58,8 +58,6 @@ public class USerServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
-        User user = this.userRepository.findUserById(id);
-        deleteListMonthBudget(user.getMonthBudgetList());
         this.userRepository.delete(this.userRepository.getOne(id));
     }
 
@@ -86,11 +84,4 @@ public class USerServiceImpl implements UserService {
     public User findUser(Long id) {
         return this.userRepository.findUserById(id);
     }
-
-    public void deleteListMonthBudget(List<MonthBudget> monthBudgets) {
-        for (MonthBudget m : monthBudgets) {
-            this.budjetService.deleteBudgetById(m.getId());
-
-        }
-    }
-}
+   }
